@@ -1184,15 +1184,15 @@
   resolved "https://registry.yarnpkg.com/@trpc/client/-/client-11.16.0.tgz#fd3844118aeabaf4b4cb025155603b08169bd9d1"
   integrity sha512-TxIzm7OoK3baKZ0XCbuMUbI3GhgjcbKHIc4nWVKaRpCRnbSh0T31BT6fTPYwtnA/Nur8pBCGqC2B4J5hEPiPFQ==
 
-"@trpc/react-query@^11.0.0":
-  version "11.16.0"
-  resolved "https://registry.yarnpkg.com/@trpc/react-query/-/react-query-11.16.0.tgz#31a9eed87a598303835c758b1c30bf9299abd43a"
-  integrity sha512-ah6ULOu4k7lCEFAEoEgqg14YPVu1lnCVVYcz8TP7avPPKwtcB0CbFKYve3ElRP+V5DoBT75Q+G66bRdR+rQ5fg==
-
 "@trpc/server@^11.0.0":
   version "11.16.0"
   resolved "https://registry.yarnpkg.com/@trpc/server/-/server-11.16.0.tgz#14977e2fc91367e5353af913105a3d866c41db98"
   integrity sha512-XgGuUMddrUTd04+za/WE5GFuZ1/YU9XQG0t3VL5WOIu2JspkOlq6k4RYEiqS6HSJt+S0RXaPdIoE2anIP/BBRQ==
+
+"@trpc/tanstack-react-query@^11.0.0":
+  version "11.17.0"
+  resolved "https://registry.yarnpkg.com/@trpc/tanstack-react-query/-/tanstack-react-query-11.17.0.tgz#36d95a25e2eb0fba1a5dea55a064d86d07512c48"
+  integrity sha512-OFxjvCgisP0yaCj7lgP6qPaFwJvJDgnrAUxH3cNIPPR89TpYbndn5vsdKNkc7EnvER9b6wq9Yz8aCcPcOBpDXg==
 
 "@tufjs/canonical-json@1.0.0":
   version "1.0.0"

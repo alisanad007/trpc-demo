@@ -1,6 +1,6 @@
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-import { publicProcedure, protectedProcedure, router } from '../trpc.js';
+import { publicProcedure, protectedProcedure, router } from '../trpc/index.js';
 
 type Todo = { id: string; title: string; completed: boolean };
 

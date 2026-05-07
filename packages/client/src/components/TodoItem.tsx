@@ -1,26 +1,26 @@
-import { trpc } from '../trpc';
+import { useMutation } from '@tanstack/react-query';
+import { useAuth } from '../hooks/useAuth';
+import { trpc } from '../api/trpc';
+import { queryClient } from '../api/react-query';
 
 type Todo = { id: string; title: string; completed: boolean };
 
-type Props = {
-  todo: Todo;
-  // Controls whether the delete button is enabled (auth enforced on server too).
-  isAuthenticated: boolean;
-};
+const invalidateTodos = () =>
+  void queryClient.invalidateQueries({ queryKey: trpc.todos.getAll.queryKey() });
 
-// Single todo row: checkbox to toggle completion, title, and a protected delete button.
-export function TodoItem({ todo, isAuthenticated }: Props) {
-  const utils = trpc.useUtils();
+export function TodoItem({ todo }: { todo: Todo }) {
+  const { isAuthenticated } = useAuth();
 
-  const updateTodo = trpc.todos.update.useMutation({
-    onSuccess: () => void utils.todos.getAll.invalidate(),
-  });
+  const updateTodo = useMutation(
+    trpc.todos.update.mutationOptions({ onSuccess: invalidateTodos }),
+  );
 
-  const deleteTodo = trpc.todos.delete.useMutation({
-    onSuccess: () => void utils.todos.getAll.invalidate(),
-    // Surface the server's UNAUTHORIZED message if the token is missing or invalid.
-    onError: (err) => alert(err.message),
-  });
+  const deleteTodo = useMutation(
+    trpc.todos.delete.mutationOptions({
+      onSuccess: invalidateTodos,
+      onError: (err) => alert(err.message),
+    }),
+  );
 
   return (
     <li className="todoItem">
@@ -28,10 +28,10 @@ export function TodoItem({ todo, isAuthenticated }: Props) {
         className="checkbox"
         type="checkbox"
         checked={todo.completed}
+        disabled={updateTodo.isPending}
         onChange={() => updateTodo.mutate({ id: todo.id, completed: !todo.completed })}
       />
       <span className={`todoTitle${todo.completed ? ' completed' : ''}`}>{todo.title}</span>
-      {/* delete is a protectedProcedure — disable the button as a UX hint; server still guards it. */}
       <button
         className="deleteButton"
         type="button"

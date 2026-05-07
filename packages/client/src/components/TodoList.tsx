@@ -1,13 +1,9 @@
-import { trpc } from '../trpc';
+import { useQuery } from '@tanstack/react-query';
+import { trpc } from '../api/trpc';
 import { TodoItem } from './TodoItem';
 
-type Props = {
-  isAuthenticated: boolean;
-};
-
-// Fetches the todo list and delegates rendering of each row to TodoItem.
-export function TodoList({ isAuthenticated }: Props) {
-  const todos = trpc.todos.getAll.useQuery();
+export function TodoList() {
+  const todos = useQuery(trpc.todos.getAll.queryOptions());
 
   if (todos.isLoading) return <p className="muted">Loading todos…</p>;
   if (todos.error) return <p className="error">Failed to load: {todos.error.message}</p>;
@@ -16,7 +12,7 @@ export function TodoList({ isAuthenticated }: Props) {
   return (
     <ul className="todoList">
       {todos.data.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} isAuthenticated={isAuthenticated} />
+        <TodoItem key={todo.id} todo={todo} />
       ))}
     </ul>
   );
